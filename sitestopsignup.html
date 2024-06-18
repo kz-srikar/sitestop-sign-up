@@ -7,6 +7,11 @@
     href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap"
     rel="stylesheet"
 />
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.12/build/css/intlTelInput.css"
+/>
 <title>Kwanzoo - Free POC Sign Up</title>
 <style>
     body {
@@ -147,6 +152,14 @@
                 required=""
             />
         </div>
+        <div>
+            <input
+                type="text"
+                id="phone"
+                placeholder="Phone Number*"
+                required=""
+            />
+        </div>
         <div class="checkbox-terms">
             <input class="check-box" type="checkbox" id="agree-to-terms" />
             <label for="agree-to-terms" class="terms-and-service">
@@ -179,7 +192,14 @@
         <div id="error-card" class="error-card" style="display: none"></div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.12/build/js/intlTelInput.min.js"></script>
 <script>
+    const input = document.querySelector("#phone");
+    let intl = window.intlTelInput(input, {
+        utilsScript:
+            "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.12/build/js/utils.js",
+    });
+    console.log(intl);
     function checkFields() {
         const firstName = document.getElementById("first-name").value.trim();
         const lastName = document.getElementById("last-name").value.trim();
@@ -187,11 +207,13 @@
         const company = document.getElementById("company").value.trim();
         const agreeToTerms = document.getElementById("agree-to-terms").checked;
         const startPocButton = document.getElementById("start-poc");
+        const phoneNumber = intl.isValidNumber();
         startPocButton.disabled = !(
             firstName &&
             lastName &&
             workEmail &&
             company &&
+            phoneNumber &&
             agreeToTerms
         );
     }
@@ -207,6 +229,7 @@
         const workEmail = document.getElementById("work-email").value.trim();
         const company = document.getElementById("company").value.trim();
         const agreeToTerms = document.getElementById("agree-to-terms").checked;
+        const phoneNumber = intl.getNumber();
         const signUpRequest = {
             firstName: firstName,
             lastName: lastName,
