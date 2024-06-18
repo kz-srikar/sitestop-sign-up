@@ -219,6 +219,14 @@
             phoneNumber &&
             agreeToTerms
         );
+        if (!phoneNumber) {
+            document.getElementById("error-card").innerHTML =
+                "Invalid Phone Number.";
+            document.getElementById("error-card").style.display = "block";
+        } else {
+            document.getElementById("error-card").innerHTML = "";
+            document.getElementById("error-card").style.display = "none";
+        }
     }
     const inputFieldsSiteStopKz = document.querySelectorAll(
         '.site-stop-sign-up input[type="text"], .site-stop-sign-up input[type="checkbox"]'
