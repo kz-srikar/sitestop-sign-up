@@ -42,6 +42,14 @@
         border-radius: 4px;
         background-color: white;
     }
+    .site-stop-sign-up #phone {
+        width: 350px;
+        height: 37px;
+        margin-bottom: 20px;
+        border: 1px solid #9e9e9e;
+        border-radius: 4px;
+        background-color: white;
+    }
     .site-stop-sign-up #work-email::placeholder,
     .site-stop-sign-up #first-name::placeholder,
     .site-stop-sign-up #last-name::placeholder,
@@ -153,12 +161,7 @@
             />
         </div>
         <div>
-            <input
-                type="text"
-                id="phone"
-                placeholder="Phone Number*"
-                required=""
-            />
+            <input type="text" id="phone" required="" />
         </div>
         <div class="checkbox-terms">
             <input class="check-box" type="checkbox" id="agree-to-terms" />
@@ -198,8 +201,8 @@
     let intl = window.intlTelInput(input, {
         utilsScript:
             "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.12/build/js/utils.js",
+        initialCountry: "us",
     });
-    console.log(intl);
     function checkFields() {
         const firstName = document.getElementById("first-name").value.trim();
         const lastName = document.getElementById("last-name").value.trim();
