@@ -1,0 +1,241 @@
+<meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link
+    id="font"
+    href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap"
+    rel="stylesheet"
+/>
+<title>Kwanzoo - Free POC Sign Up</title>
+<style>
+    body {
+        font-family: Poppins, sans-serif !important;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+    .site-stop-sign-up {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .site-stop-sign-up h2 {
+        margin: 0 0 20px;
+    }
+    .site-stop-sign-up label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .site-stop-sign-up #work-email,
+    .site-stop-sign-up #first-name,
+    .site-stop-sign-up #last-name,
+    .site-stop-sign-up #company {
+        width: 350px;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #9e9e9e;
+        border-radius: 4px;
+        background-color: white;
+    }
+    .site-stop-sign-up #work-email::placeholder,
+    .site-stop-sign-up #first-name::placeholder,
+    .site-stop-sign-up #last-name::placeholder,
+    .site-stop-sign-up #company::placeholder {
+        color: #000000;
+        font-size: 15px;
+        font-family: Poppins, sans-serif !important;
+    }
+    .site-stop-sign-up input[type="checkbox"] {
+        margin-right: 10px;
+        transform: scale(1.3);
+        cursor: pointer;
+    }
+    .login .terms-and-service {
+        font-size: 14px;
+    }
+    .site-stop-sign-up .btn {
+        padding: 8px 40px;
+        border: none;
+        border-radius: 25px;
+        background-color: #ee5a35;
+        color: #fff;
+        cursor: pointer;
+        font-family: Poppins, sans-serif !important;
+        font-size: 15px;
+    }
+    .site-stop-sign-up .btn:disabled {
+        background-color: #fff;
+        cursor: not-allowed;
+        border: 1px solid #9e9e9e;
+        color: #9e9e9e;
+    }
+    .error-card {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #dc3545;
+        border-radius: 5px;
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    .checkbox-terms {
+        display: flex;
+        margin-bottom: 20px;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 50px;
+    }
+    .terms-and-service {
+        margin-top: 6px;
+        color: #2b2a2a;
+    }
+    .log-in {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: -18px;
+        margin-bottom: 20px;
+        margin-right: 90px;
+        color: #2b2a2a;
+    }
+</style>
+<div class="site-stop-sign-up">
+    <h2>Sign up for SiteStop By Kwanzoo - Free POC</h2>
+    <div>
+        <span class="log-in">
+            Already have an account?&nbsp;
+            <a
+                href="https://app.kwanzoo.com/login"
+                target="_blank"
+                style="text-decoration: none; color: blue"
+            >
+                Sign In
+            </a>
+        </span>
+    </div>
+    <div class="container">
+        <div>
+            <input
+                type="text"
+                id="work-email"
+                placeholder="Work Email*"
+                required=""
+            />
+        </div>
+        <div>
+            <input
+                type="text"
+                id="first-name"
+                placeholder="First Name*"
+                required=""
+            />
+        </div>
+        <div>
+            <input
+                type="text"
+                id="last-name"
+                placeholder="Last Name*"
+                required=""
+            />
+        </div>
+        <div>
+            <input
+                type="text"
+                id="company"
+                placeholder="Company Name*"
+                required=""
+            />
+        </div>
+        <div class="checkbox-terms">
+            <input class="check-box" type="checkbox" id="agree-to-terms" />
+            <label for="agree-to-terms" class="terms-and-service">
+                I agree to the Kwanzoo
+                <a
+                    href="https://www.kwanzoo.com/terms-of-service"
+                    target="_blank"
+                    style="text-decoration: none; color: #007bff"
+                >
+                    Terms of Service
+                </a>
+                and
+                <a
+                    href="https://www.kwanzoo.com/privacy"
+                    target="_blank"
+                    style="text-decoration: none; color: #007bff"
+                >
+                    Privacy Policy
+                </a>
+            </label>
+        </div>
+        <button
+            id="start-poc"
+            class="btn"
+            onclick="createAccount()"
+            disabled=""
+        >
+            START 14-DAY FREE POC
+        </button>
+        <div id="error-card" class="error-card" style="display: none"></div>
+    </div>
+</div>
+<script>
+    function checkFields() {
+        const firstName = document.getElementById("first-name").value.trim();
+        const lastName = document.getElementById("last-name").value.trim();
+        const workEmail = document.getElementById("work-email").value.trim();
+        const company = document.getElementById("company").value.trim();
+        const agreeToTerms = document.getElementById("agree-to-terms").checked;
+        const startPocButton = document.getElementById("start-poc");
+        startPocButton.disabled = !(
+            firstName &&
+            lastName &&
+            workEmail &&
+            company &&
+            agreeToTerms
+        );
+    }
+    const inputFieldsSiteStopKz = document.querySelectorAll(
+        '.site-stop-sign-up input[type="text"], .site-stop-sign-up input[type="checkbox"]'
+    );
+    inputFieldsSiteStopKz.forEach((inputField) => {
+        inputField.addEventListener("input", checkFields);
+    });
+    async function createAccount() {
+        const firstName = document.getElementById("first-name").value.trim();
+        const lastName = document.getElementById("last-name").value.trim();
+        const workEmail = document.getElementById("work-email").value.trim();
+        const company = document.getElementById("company").value.trim();
+        const agreeToTerms = document.getElementById("agree-to-terms").checked;
+        const signUpRequest = {
+            firstName: firstName,
+            lastName: lastName,
+            workEmail: workEmail,
+            company: company,
+            agreeToTerms: agreeToTerms,
+        };
+        try {
+            const response = await fetch(
+                "https://api-app.kwanzoo.com/sign-up",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(signUpRequest),
+                }
+            );
+            const responseData = await response.json();
+            if (response.ok) {
+                window.parent.location.href =
+                    "https://www.kwanzoo.com/sitestop/Free-Trial-ThankYou";
+            } else {
+                throw new Error(responseData.message);
+            }
+        } catch (error) {
+            console.error(error);
+            document.getElementById("error-card").innerHTML = error.message;
+            document.getElementById("error-card").style.display = "block";
+        }
+    }
+</script>
