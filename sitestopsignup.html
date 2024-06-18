@@ -210,23 +210,14 @@
         const company = document.getElementById("company").value.trim();
         const agreeToTerms = document.getElementById("agree-to-terms").checked;
         const startPocButton = document.getElementById("start-poc");
-        const phoneNumber = intl.isValidNumber();
+
         startPocButton.disabled = !(
             firstName &&
             lastName &&
             workEmail &&
             company &&
-            phoneNumber &&
             agreeToTerms
         );
-        if (!phoneNumber) {
-            document.getElementById("error-card").innerHTML =
-                "Invalid Phone Number.";
-            document.getElementById("error-card").style.display = "block";
-        } else {
-            document.getElementById("error-card").innerHTML = "";
-            document.getElementById("error-card").style.display = "none";
-        }
     }
     const inputFieldsSiteStopKz = document.querySelectorAll(
         '.site-stop-sign-up input[type="text"], .site-stop-sign-up input[type="checkbox"]'
@@ -240,6 +231,16 @@
         const workEmail = document.getElementById("work-email").value.trim();
         const company = document.getElementById("company").value.trim();
         const agreeToTerms = document.getElementById("agree-to-terms").checked;
+        const phoneNumberCheck = intl.isValidNumber();
+        if (!phoneNumberCheck) {
+            document.getElementById("error-card").innerHTML =
+                "Invalid Phone Number.";
+            document.getElementById("error-card").style.display = "block";
+            return;
+        } else {
+            document.getElementById("error-card").innerHTML = "";
+            document.getElementById("error-card").style.display = "none";
+        }
         const phoneNumber = intl.getNumber();
         const signUpRequest = {
             firstName: firstName,
