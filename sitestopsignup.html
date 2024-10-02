@@ -42,6 +42,14 @@
         border-radius: 4px;
         background-color: white;
     }
+    .site-stop-sign-up #referral-code {
+        width: 350px;
+        padding: 10px;
+        margin-top: 20px;
+        border: 1px solid #9e9e9e;
+        border-radius: 4px;
+        background-color: white;
+    }
     .site-stop-sign-up #phone {
         width: 350px;
         height: 37px;
@@ -53,7 +61,8 @@
     .site-stop-sign-up #work-email::placeholder,
     .site-stop-sign-up #first-name::placeholder,
     .site-stop-sign-up #last-name::placeholder,
-    .site-stop-sign-up #company::placeholder {
+    .site-stop-sign-up #company::placeholder,
+    .site-stop-sign-up #referral-code::placeholder {
         color: #000000;
         font-size: 15px;
         font-family: Poppins, sans-serif !important;
@@ -163,6 +172,13 @@
         <div>
             <input type="text" id="phone" required="" />
         </div>
+        <div>
+            <input
+                type="text"
+                id="referral-code"
+                placeholder="Referral Code"
+            />
+        </div>
         <div class="checkbox-terms">
             <input class="check-box" type="checkbox" id="agree-to-terms" />
             <label for="agree-to-terms" class="terms-and-service">
@@ -210,7 +226,7 @@
         const company = document.getElementById("company").value.trim();
         const agreeToTerms = document.getElementById("agree-to-terms").checked;
         const startPocButton = document.getElementById("start-poc");
-
+        
         startPocButton.disabled = !(
             firstName &&
             lastName &&
@@ -232,6 +248,7 @@
         const company = document.getElementById("company").value.trim();
         const agreeToTerms = document.getElementById("agree-to-terms").checked;
         const phoneNumberCheck = intl.isValidNumber();
+        const referredBy = document.getElementById("referral-code").value.trim();
         if (!phoneNumberCheck) {
             document.getElementById("error-card").innerHTML =
                 "Invalid Phone Number.";
@@ -249,6 +266,7 @@
             company: company,
             agreeToTerms: agreeToTerms,
             phoneNumber: phoneNumber,
+            referredBy: referredBy,
         };
         try {
             const response = await fetch(
