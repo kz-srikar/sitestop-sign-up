@@ -228,10 +228,7 @@
     window.addEventListener("DOMContentLoaded", () => {
         const referralCodeInput = document.getElementById("referral-code");
         const referrerId = getQueryParam("referrer_id");
-
-        if (referrerId) {
-            referralCodeInput.value = referrerId;
-        }
+        if (referrerId) referralCodeInput.value = referrerId;
     })
 
     function checkFields() {
