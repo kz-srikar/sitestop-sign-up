@@ -219,6 +219,21 @@
             "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.12/build/js/utils.js",
         initialCountry: "us",
     });
+
+    function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const referralCodeInput = document.getElementById("referral-code");
+        const referrerId = getQueryParam("referrer_id");
+
+        if (referrerId) {
+            referralCodeInput.value = referrerId;
+        }
+    })
+
     function checkFields() {
         const firstName = document.getElementById("first-name").value.trim();
         const lastName = document.getElementById("last-name").value.trim();
