@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Control Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .radio-group {
+            margin-bottom: 20px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        .submit-btn {
+            background-color: #f1592a;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #d9481f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Have full control of your privacy</h1>
+    <p>Please enter your current email and full name. Please select the type of request you are looking for and submit the form. We will use this email for communication and your request will get processed in 10 days.</p>
+    
+    <form id="privacyForm">
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="firstName">First Name *</label>
+        <input type="text" id="firstName" name="firstName" required>
+        
+        <label for="lastName">Last Name *</label>
+        <input type="text" id="lastName" name="lastName" required>
+        
+        <div class="radio-group">
+            <label>Opt Out Preference *</label>
+            <label><input type="radio" name="optOutPreference" value="access" required> Request to know/access my personal information</label>
+            <label><input type="radio" name="optOutPreference" value="correct"> Request to correct my personal information</label>
+            <label><input type="radio" name="optOutPreference" value="delete"> Request to delete my personal information</label>
+            <label><input type="radio" name="optOutPreference" value="optOutSale"> Opt out of the “sale” or “sharing” of my personal information</label>
+            <label><input type="radio" name="optOutPreference" value="targetedAds"> Opt out of the processing of my information for purposes of targeted advertising</label>
+        </div>
+        
+        <label for="companyName">Company Name</label>
+        <input type="text" id="companyName" name="companyName">
+        
+        <label for="linkedinUrl">LinkedIn URL</label>
+        <input type="text" id="linkedinUrl" name="linkedinUrl">
+        
+        <label for="mobile">Mobile</label>
+        <input type="text" id="mobile" name="mobile">
+        
+        <label for="jobTitle">Job Title</label>
+        <input type="text" id="jobTitle" name="jobTitle">
+        
+        <label for="seniority">Seniority</label>
+        <input type="text" id="seniority" name="seniority">
+        
+        <label for="department">Department</label>
+        <input type="text" id="department" name="department">
+        
+        <p class="disclaimer">By clicking on the "Submit" button below, you confirm that the information provided holds truth and accuracy, granting Kwanzoo the right to contact you to verify your identity and to process your request.</p>
+        
+        <button type="submit" class="submit-btn">SUBMIT</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('privacyForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        alert('Form submitted!');
+        // Additional form submission logic can be added here
+    });
+</script>
+
+</body>
+</html>
