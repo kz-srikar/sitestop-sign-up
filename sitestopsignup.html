@@ -254,6 +254,13 @@
         inputField.addEventListener("input", checkFields);
     });
     async function createAccount() {
+        const startPocButton = document.getElementById("start-poc");
+        const originalButtonText = startPocButton.textContent;
+
+        // Disable the button and show loading state
+        startPocButton.disabled = true;
+        startPocButton.textContent = "Loading...";
+        
         const firstName = document.getElementById("first-name").value.trim();
         const lastName = document.getElementById("last-name").value.trim();
         const workEmail = document.getElementById("work-email").value.trim();
@@ -302,6 +309,10 @@
             console.error(error);
             document.getElementById("error-card").innerHTML = error.message;
             document.getElementById("error-card").style.display = "block";
+        } finally {
+            // Re-enable the button and reset text after the request completes
+            startPocButton.disabled = false;
+            startPocButton.textContent = originalButtonText;
         }
     }
 </script>
