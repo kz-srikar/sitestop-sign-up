@@ -91,6 +91,10 @@
         .submit-btn:hover {
             background-color: #d9481f;
         }
+
+        .additional-fields {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -117,24 +121,26 @@
             <label><input type="radio" name="optOutPreference" value="optOutSale"> Opt out of the “sale” or “sharing” of my personal information</label>
             <label><input type="radio" name="optOutPreference" value="targetedAds"> Opt out of the processing of my information for purposes of targeted advertising</label>
         </div>
-        
-        <label for="companyName">Company Name</label>
-        <input type="text" id="companyName" name="companyName">
-        
-        <label for="linkedinUrl">LinkedIn URL</label>
-        <input type="text" id="linkedinUrl" name="linkedinUrl">
-        
-        <label for="mobile">Mobile</label>
-        <input type="text" id="mobile" name="mobile">
-        
-        <label for="jobTitle">Job Title</label>
-        <input type="text" id="jobTitle" name="jobTitle">
-        
-        <label for="seniority">Seniority</label>
-        <input type="text" id="seniority" name="seniority">
-        
-        <label for="department">Department</label>
-        <input type="text" id="department" name="department">
+
+        <div id="additionalFields" class="additional-fields">
+            <label for="companyName">Company Name</label>
+            <input type="text" id="companyName" name="companyName">
+            
+            <label for="linkedinUrl">LinkedIn URL</label>
+            <input type="text" id="linkedinUrl" name="linkedinUrl">
+            
+            <label for="mobile">Mobile</label>
+            <input type="text" id="mobile" name="mobile">
+            
+            <label for="jobTitle">Job Title</label>
+            <input type="text" id="jobTitle" name="jobTitle">
+            
+            <label for="seniority">Seniority</label>
+            <input type="text" id="seniority" name="seniority">
+            
+            <label for="department">Department</label>
+            <input type="text" id="department" name="department">
+        </div>
         
         <p class="disclaimer">By clicking on the "Submit" button below, you confirm that the information provided holds truth and accuracy, granting Kwanzoo the right to contact you to verify your identity and to process your request.</p>
         
@@ -143,10 +149,95 @@
 </div>
 
 <script>
+
+    // Add event listeners to the radio buttons to toggle the required fields and visibility
+    document.querySelectorAll('input[name="optOutPreference"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            const correctionFields = document.getElementById('additionalFields');
+            const correctFields = [
+                'companyName',
+                'linkedinUrl',
+                'mobile',
+                'jobTitle',
+                'seniority',
+                'department'
+            ];
+
+            if (this.value === 'correct') {
+                correctionFields.style.display = 'block'; // Show the correction fields
+                correctFields.forEach(field => {
+                    document.getElementById(field).setAttribute('required', 'required'); // Make them required
+                });
+            } else {
+                correctionFields.style.display = 'none'; // Hide the correction fields
+                correctFields.forEach(field => {
+                    document.getElementById(field).removeAttribute('required'); // Remove required attribute
+                });
+            }
+        });
+    });
+
     document.getElementById('privacyForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        alert('Form submitted!');
-        // Additional form submission logic can be added here
+
+        // Determine the opt-out preference
+        const selectedOption = document.querySelector('input[name="optOutPreference"]:checked').value;
+        let optOutPreference;
+
+        // Map the selected option to the OptOutPreference enum
+        switch (selectedOption) {
+            case 'access':
+                optOutPreference = 'REQUEST_TO_READ_INFORMATION';
+                break;
+            case 'correct':
+                optOutPreference = 'REQUEST_TO_UPDATE_INFORMATION';
+                break;
+            default:
+                optOutPreference = 'REQUEST_TO_OPT_OUT_INFORMATION';
+                break;
+        }
+
+        // Create the request object
+        const requestData = {
+            email: document.getElementById('email').value,
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            optOutPreference: optOutPreference
+        };
+
+        // If the "correct" option is selected, include the additional fields
+        if (optOutPreference === "correct") {
+            requestData.correctedData = {
+                company_name: document.getElementById('companyName').value,
+                linkedin_url: document.getElementById('linkedinUrl').value,
+                mobile: document.getElementById('mobile').value,
+                job_title: document.getElementById('jobTitle').value,
+                seniority: document.getElementById('seniority').value,
+                department: document.getElementById('department').value
+            };
+        }
+
+        // Call the API
+        fetch('https://api-app-qa.kwanzoo.com/data-privacy/opt-out', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Something is Wrong. Please try again later or try reaching out to us through email.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('There was a problem with your submission.');
+        });
     });
 </script>
 
